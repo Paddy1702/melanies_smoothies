@@ -10,7 +10,7 @@ name_on_order = st.text_input('Name on Smoothie:')
 st.write('The name on your smoothie will be:',name_on_order)
 
 # Assuming you have already defined the 'session' and 'my_dataframe' variables
-cnx = st.connection("snowflake")
+cnx = st.connection("Snowflake")
 session = cnx.session()
 
 my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'))
@@ -43,6 +43,6 @@ if ingredients_list:
         session.sql(my_insert_stmt).collect()
         st.success('Your Smoothie is ordered!',icon="✅")
         
-import requests
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
-st.text(fruityvice_response)
+#import requests
+#fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
+#st.text(fruityvice_response)
