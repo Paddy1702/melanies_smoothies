@@ -15,7 +15,7 @@ conn = st.connection("snowflake")
 session = conn.session()
 
 # Display the dataframe
-my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'),col('SEARCH_ON))
+my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'),col('SEARCH_ON'))
                                                                                             
 #convert snowpark dataframe to Pandas dataframe
 pd_df=my_dataframe.to_pandas()
