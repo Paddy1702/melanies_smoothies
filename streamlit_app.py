@@ -1,9 +1,6 @@
 # Import Python packages
 import streamlit as st
 from snowflake.snowpark.functions import col
-import requests
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
-st.text(fruityvice_response)
 
 # Write directly to the app
 st.title(":cup_with_straw: Customize Your Smoothie!:cup_with_straw:")
@@ -13,7 +10,7 @@ name_on_order = st.text_input('Name on Smoothie:')
 st.write('The name on your smoothie will be:',name_on_order)
 
 # Assuming you have already defined the 'session' and 'my_dataframe' variables
-cnx = st.connection('Snowflake')
+cnx = st.connection("snowflake")
 session = cnx.session()
 
 my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'))
@@ -37,8 +34,7 @@ if ingredients_list:
 
     my_insert_stmt = """INSERT INTO smoothies.public.orders (ingredients,name_on_order)
                    VALUES ('""" + ingredients_string + """', '""" + name_on_order + """')"""
-   
-  
+     
     st.write(my_insert_stmt)
         
     time_to_insert = st.button('Submit Order')
@@ -47,3 +43,6 @@ if ingredients_list:
         session.sql(my_insert_stmt).collect()
         st.success('Your Smoothie is ordered!',icon="✅")
         
+import requests
+fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
+st.text(fruityvice_response)
